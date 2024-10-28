@@ -4,29 +4,24 @@ import time
 import click
 
 from generate_pass import generate_pass
+from strength_checker import strength_checker
 
 
 @click.command()
 def generate():
     click.echo("\n--- Password Generator ---")
-    length = click.prompt("Enter the password length (>0)", type=int)
+    length = click.prompt("Enter the password length (>5)", type=int)
 
-    if length > 0:
-        uppercase = click.confirm(
-            "Do you want to include uppercase letter ?", default=True
-        )
-        lowercase = click.confirm(
-            "Do you want to include lowercase letter ?", default=True
-        )
-        numbers = click.confirm("Do you want to include numbers ?", default=True)
-        symbols = click.confirm("Do you want to include symbols ?", default=True)
-
-        generate_pass(length, uppercase, lowercase, numbers, symbols)
-
-    else:
-
+    if length <= 5:
         click.echo("Invalid password length")
         generate()
+
+    uppercase = click.confirm("Do you want to include uppercase letter ?", default=True)
+    lowercase = click.confirm("Do you want to include lowercase letter ?", default=True)
+    numbers = click.confirm("Do you want to include numbers ?", default=True)
+    symbols = click.confirm("Do you want to include symbols ?", default=True)
+
+    generate_pass(length, uppercase, lowercase, numbers, symbols)
 
 
 @click.command()
@@ -37,6 +32,14 @@ def history():
 @click.command()
 def strength():
     click.echo("\n--- Password Strength ---")
+    pswrd = click.prompt("Enter your password", type=str)
+    print(strength_checker(pswrd))
+
+    ask = click.confirm("Do you want to quit?", default=True)
+    if ask:
+        return
+
+    main()
 
 
 @click.group(invoke_without_command=True)
