@@ -24,10 +24,11 @@ def strength_checker(pswrd):
     if has_symbols:
         score += 1
 
-    return result(score)
+    return score
 
 
-def result(score):
+def result(pswrd):
+    score = strength_checker(pswrd)
     if score >= 6:
         return "You have strong password"
 

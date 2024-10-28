@@ -2,9 +2,11 @@ import random
 import time
 
 import click
+import pyperclip
 
+from file_utils import pswd_to_file
 from generate_pass import generate_pass
-from strength_checker import strength_checker
+from strength_checker import result
 
 
 @click.command()
@@ -21,7 +23,36 @@ def generate():
     numbers = click.confirm("Do you want to include numbers ?", default=True)
     symbols = click.confirm("Do you want to include symbols ?", default=True)
 
-    generate_pass(length, uppercase, lowercase, numbers, symbols)
+    generated_pass = generate_pass(length, uppercase, lowercase, numbers, symbols)
+
+    print(f"\n{generated_pass}")
+
+    click.echo("\nPlease select an option :")
+    click.echo("\n1. Re-Generate password")
+    click.echo("\n2. Copy password to clipboard")
+    click.echo("\n3. Save the password")
+    click.echo("\n4. Back to menu")
+    click.echo("\n5. Quit")
+
+    option = click.prompt("Please enter the number of your choice", type=int)
+
+    match (option):
+        case 1:
+            generate()
+        case 2:
+            pyperclip.copy(generated_pass)
+            click.echo("Your password has been copied to clipboard")
+        case 3:
+            name = click.prompt("\nPlease input the name for the password : ")
+            pswd_to_file(name, generated_pass)
+            click.echo("\nYour password has been saved")
+            return
+        case 4:
+            main()
+        case 5:
+            return
+        case _:
+            print("Invalid option. Please try again")
 
 
 @click.command()
@@ -33,7 +64,7 @@ def history():
 def strength():
     click.echo("\n--- Password Strength ---")
     pswrd = click.prompt("Enter your password", type=str)
-    print(strength_checker(pswrd))
+    print(result(pswrd))
 
     ask = click.confirm("Do you want to quit?", default=True)
     if ask:
