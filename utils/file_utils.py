@@ -23,3 +23,17 @@ def pswd_to_file(name, pswrd):
 
     with open(FILE_PATH, "w") as file:
         json.dump(data, file, indent=4)
+
+
+def read_pswd():
+    os.makedirs(DIRECTORY_PATH, exist_ok=True)
+
+    if FILE_PATH.exists():
+        with open(FILE_PATH, "r") as file:
+            data = json.load(file)
+
+        for entry in data:
+            print(f"Name : {entry['name']} -> Password : {entry['password']}")
+
+    else:
+        print("There is no password history")

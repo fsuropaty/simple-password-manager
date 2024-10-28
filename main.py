@@ -4,9 +4,9 @@ import time
 import click
 import pyperclip
 
-from file_utils import pswd_to_file
-from generate_pass import generate_pass
-from strength_checker import result
+from utils.file_utils import pswd_to_file, read_pswd
+from utils.generate_pass import generate_pass
+from utils.strength_checker import result
 
 
 @click.command()
@@ -58,6 +58,7 @@ def generate():
 @click.command()
 def history():
     click.echo("\n--- Password History ---")
+    read_pswd()
 
 
 @click.command()
