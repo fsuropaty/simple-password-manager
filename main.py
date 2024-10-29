@@ -25,14 +25,16 @@ def generate():
 
     generated_pass = generate_pass(length, uppercase, lowercase, numbers, symbols)
 
-    print(f"\n{generated_pass}")
+    click.echo("----------------------------------")
+    print(f"{generated_pass}")
+    click.echo("----------------------------------")
 
     click.echo("\nPlease select an option :")
-    click.echo("\n1. Re-Generate password")
-    click.echo("\n2. Copy password to clipboard")
-    click.echo("\n3. Save the password")
-    click.echo("\n4. Back to menu")
-    click.echo("\n5. Quit")
+    click.echo("1. Re-Generate password")
+    click.echo("2. Copy password to clipboard")
+    click.echo("3. Save the password (Un-encrypted)")
+    click.echo("4. Back to menu")
+    click.echo("5. Quit")
 
     option = click.prompt("Please enter the number of your choice", type=int)
 
@@ -43,9 +45,12 @@ def generate():
             pyperclip.copy(generated_pass)
             click.echo("Your password has been copied to clipboard")
         case 3:
-            name = click.prompt("\nPlease input the name for the password : ")
+            click.echo(
+                "\nBe careful!, this operation only save the password to un-encrypted .json file"
+            )
+            name = click.prompt("\nPlease input the name for the password", type=str)
             pswd_to_file(name, generated_pass)
-            click.echo("\nYour password has been saved")
+            click.echo("\nYour password has been saved at vault/saved_password.json")
             return
         case 4:
             main()
