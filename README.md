@@ -12,7 +12,7 @@ A simple CLI password manager tools
 ## Installation
 Follow these steps to clone and set up the project on your machine.
 
-### Prerquisites
+### Prequisites
 - [Python 3.x](https://www.python.org/downloads/) 
 - [Git](https://git-scm.com/)
 
