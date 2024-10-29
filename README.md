@@ -70,6 +70,7 @@ Password manager i recommend to use is :
 - [ ] Encrypt the saved password file
 - [ ] Find the password features
 - [ ] Delete the selected password
+- [ ] Passphrase Generator
 
 
 
